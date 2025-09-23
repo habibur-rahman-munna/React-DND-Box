@@ -4,7 +4,13 @@ import DraggableItem from "./DraggableItem";
 
 const ItemType = "LIST_ITEM";
 
-const DropContainer = ({ id, items, moveItem, moveBetweenContainers }) => {
+const DropContainer = ({
+  id,
+  items,
+  moveItem,
+  moveBetweenContainers,
+  onItemClick,
+}) => {
   const [, drop] = useDrop({
     accept: ItemType,
     drop: (draggedItem) => {
@@ -28,6 +34,7 @@ const DropContainer = ({ id, items, moveItem, moveBetweenContainers }) => {
             index={index}
             moveItem={moveItem}
             containerId={id}
+            onItemClick={onItemClick}
           />
         ))}
       </ul>

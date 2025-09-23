@@ -7,25 +7,63 @@ import "./index.css";
 const App = () => {
   const defaultData = {
     box1: [
-      { id: "1", text: "Item 1" },
-      { id: "2", text: "Item 2" },
-      { id: "3", text: "Item 3" },
+      {
+        id: "1",
+        text: "Item 1",
+        description: "This is the description for Item 1",
+      },
+      {
+        id: "2",
+        text: "Item 2",
+        description: "This is the description for Item 2",
+      },
+      {
+        id: "3",
+        text: "Item 3",
+        description: "This is the description for Item 3",
+      },
     ],
     box2: [
-      { id: "4", text: "Item 4" },
-      { id: "5", text: "Item 5" },
-      { id: "6", text: "Item 6" },
+      {
+        id: "4",
+        text: "Item 4",
+        description: "This is the description for Item 4",
+      },
+      {
+        id: "5",
+        text: "Item 5",
+        description: "This is the description for Item 5",
+      },
+      {
+        id: "6",
+        text: "Item 6",
+        description: "This is the description for Item 6",
+      },
     ],
     box3: [
-      { id: "7", text: "Item 7" },
-      { id: "8", text: "Item 8" },
-      { id: "9", text: "Item 9" },
+      {
+        id: "7",
+        text: "Item 7",
+        description: "This is the description for Item 7",
+      },
+      {
+        id: "8",
+        text: "Item 8",
+        description: "This is the description for Item 8",
+      },
+      {
+        id: "9",
+        text: "Item 9",
+        description: "This is the description for Item 9",
+      },
     ],
   };
 
   const [containers, setContainers] = useState(
     JSON.parse(localStorage.getItem("dragDropData")) || defaultData
   );
+
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("dragDropData", JSON.stringify(containers));
@@ -64,11 +102,27 @@ const App = () => {
                 items={containers[box]}
                 moveItem={moveItem}
                 moveBetweenContainers={moveBetweenContainers}
+                onItemClick={setSelectedItem}
               />
             ))}
           </div>
         </div>
       </div>
+
+      {selectedItem && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+            <h3 className="text-lg font-bold mb-2">{selectedItem.text}</h3>
+            <p className="text-gray-700">{selectedItem.description}</p>
+            <button
+              onClick={() => setSelectedItem(null)}
+              className="mt-4 px-6 py-2 bg-white text-black border border-black rounded hover:bg-black hover:text-white transition"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </DndProvider>
   );
 };
